@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My First HTML Game</title>
+</head>
+<body>
+  <canvas id="canvas" width="600" height="400"></canvas>
+  <script>
+    function startGame() {
+      // Create a ball object.
+      var ball = {
+        position: {
+          x: 200,
+          y: 200
+        },
+        velocity: {
+          x: 5,
+          y: 5
+        }
+      };
+    
+      // Create a function to draw the ball.
+      function drawBall() {
+        var ctx = canvas.getContext("2d");
+        ctx.fillStyle = "red";
+        ctx.fillRect(ball.position.x, ball.position.y, 20, 20);
+      }
+    
+      // Create a function to move the ball.
+      function moveBall() {
+        ball.position.x += ball.velocity.x;
+        ball.position.y += ball.velocity.y;
+    
+        // If the ball hits the edge of the canvas, bounce it back.
+        if (ball.position.x < 0) {
+          ball.velocity.x *= -1;
+        } else if (ball.position.x > canvas.width) {
+          ball.velocity.x *= -1;
+        }
+    
+        if (ball.position.y < 0) {
+          ball.velocity.y *= -1;
+        } else if (ball.position.y > canvas.height) {
+          ball.velocity.y *= -1;
+        }
+      }
+    
+      // Start the game loop.
+      var intervalId = setInterval(function() {
+        moveBall();
+        drawBall();
+      }, 10);
+    }
+    
+    // Call the startGame() function when the page loads.
+    window.onload = startGame;
+  </script>
+</body>
+</html>
